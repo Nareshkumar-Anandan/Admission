@@ -1,0 +1,103 @@
+/* components/styles/TopRecruiters.css */
+
+.top-recruiters {
+  text-align: center;
+  background: var(--clr-white);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.top-recruiters h2 {
+  font-family: var(--fnt-heading);
+  font-size: 2.15rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--clr-dark);
+  letter-spacing: -0.02em;
+}
+
+.recruiter-logos {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 120px;
+}
+
+.logos-slide {
+  display: flex;
+  align-items: center;
+  animation: scroll-logos 40s linear infinite;
+  white-space: nowrap;
+}
+
+.logos-slide img {
+  width: 140px;
+  height: auto;
+  margin: 0 40px;
+  transition: var(--transition-smooth);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.logos-slide img:hover {
+  transform: scale(1.15);
+}
+
+@keyframes scroll-logos {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.top-recruiters::before,
+.top-recruiters::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.top-recruiters::before {
+  left: 0;
+  background: linear-gradient(to right, var(--clr-white), transparent);
+}
+
+.top-recruiters::after {
+  right: 0;
+  background: linear-gradient(to left, var(--clr-white), transparent);
+}
+
+@media (max-width: 768px) {
+  .top-recruiters {
+    padding: 60px 0;
+  }
+
+  .top-recruiters h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .recruiter-logos {
+    height: 80px;
+  }
+
+  .logos-slide img {
+    width: 100px;
+    margin: 0 20px;
+  }
+
+  .top-recruiters::before,
+  .top-recruiters::after {
+    width: 100px;
+  }
+}

@@ -1,0 +1,140 @@
+/* ================================
+   Forgot Password Page Styles
+================================ */
+
+.forgot-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Card Style */
+.forgot-card {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.forgot-logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.forgot-card h2 {
+  font-size: 24px;
+  color: #102a43;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.forgot-card p.description {
+  font-size: 14px;
+  color: #627d98;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* Inputs */
+.forgot-card input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  border: 1px solid #d9e2ec;
+  border-radius: 6px;
+  background-color: #f0f4f8;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect width */
+}
+
+.forgot-card input:focus {
+  outline: none;
+  border-color: #0d47a1;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+}
+
+/* Button */
+.forgot-card button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #0d47a1, #1565c0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.forgot-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+}
+
+.forgot-card button:active {
+  transform: translateY(0);
+}
+
+/* OTP Input Specifics */
+.otp-input {
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+/* Message */
+.message {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.message.success {
+  color: #2e7d32;
+  background: #e8f5e9;
+}
+
+/* Password Input Wrapper */
+.password-input-group {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-group input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #627d98;
+  font-size: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toggle-password:hover {
+  color: #0d47a1;
+}

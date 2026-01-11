@@ -1,0 +1,173 @@
+:root {
+    --admin-accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --admin-sidebar-bg: #0f172a;
+    --admin-sidebar-text: #94a3b8;
+    --admin-sidebar-active: #ffffff;
+    --admin-sidebar-hover: rgba(255, 255, 255, 0.05);
+
+    --admin-main-bg: #f8fafc;
+    --admin-card-radius: 1.25rem;
+    --admin-glass-bg: rgba(255, 255, 255, 0.8);
+    --admin-glass-border: rgba(255, 255, 255, 0.2);
+
+    --font-youth: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Global Admin Layout Enhancements */
+.dashboard-layout {
+    background: var(--admin-main-bg);
+    font-family: var(--font-youth);
+}
+
+.dashboard-content {
+    padding: 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Youthful Sidebar Redesign */
+.sidebar {
+    width: 280px;
+    background: var(--admin-sidebar-bg);
+    border-right: none;
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-section {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+}
+
+.logo-section h2 {
+    color: white;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: var(--admin-accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.4));
+}
+
+.menu li {
+    margin: 0.5rem 1.25rem;
+}
+
+.menu li a {
+    padding: 0.875rem 1.25rem;
+    border-radius: 0.75rem;
+    color: var(--admin-sidebar-text);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+}
+
+.menu li a:hover {
+    background: var(--admin-sidebar-hover);
+    color: white;
+    transform: translateX(4px);
+}
+
+.menu li a.active {
+    background: var(--admin-accent-gradient);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+/* Navigation Icons (placeholder for styling) */
+.nav-icon {
+    font-size: 1.25rem;
+}
+
+/* Modern Header Overhaul */
+.dashboard-header {
+    background: transparent;
+    padding: 1rem 0 2rem 0;
+    border-bottom: none;
+}
+
+.dashboard-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.05em;
+}
+
+/* Modern Table/Grid Container */
+.admin-card-container {
+    background: white;
+    border-radius: var(--admin-card-radius);
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+}
+
+/* Youthful Button Styles */
+.admin-btn-primary {
+    background: var(--admin-accent-gradient);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2);
+}
+
+.admin-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.3);
+}
+
+/* Data Table Stylings */
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.75rem;
+}
+
+.modern-table th {
+    padding: 1rem;
+    text-align: left;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.modern-table td {
+    padding: 1.25rem 1rem;
+    background: white;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.modern-table tr:hover td {
+    background: #f8fafc;
+}
+
+.modern-table td:first-child {
+    border-left: 1px solid #f1f5f9;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.modern-table td:last-child {
+    border-right: 1px solid #f1f5f9;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}

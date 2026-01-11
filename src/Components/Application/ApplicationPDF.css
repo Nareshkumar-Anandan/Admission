@@ -1,0 +1,508 @@
+.printable-form {
+    width: 210mm;
+    margin: 0 auto;
+    font-family: 'Times New Roman', Times, serif;
+    color: #000;
+    line-height: 1.3;
+}
+
+.page-wrapper-fidelity {
+    width: 210mm;
+    height: 297mm;
+    padding: 10mm 10mm;
+    /* Reduced padding to give content more room while staying inside border */
+    box-sizing: border-box;
+    position: relative;
+    background: white;
+    margin: 10mm auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Inner decorative border */
+.page-wrapper-fidelity::before {
+    content: "";
+    position: absolute;
+    top: 3mm;
+    /* Border inset from edge */
+    left: 3mm;
+    right: 3mm;
+    bottom: 3mm;
+    border: 1px solid #000;
+    /* Primary single border */
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Official Watermark Feel */
+.page-wrapper-fidelity::after {
+    content: "OFFICIAL APPLICATION FORM";
+    position: absolute;
+    top: 55%;
+    left: 10%;
+    transform: rotate(-35deg);
+    font-size: 60pt;
+    font-weight: 800;
+    color: rgba(200, 58, 58, 0.02);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+}
+
+/* HEADER SECTION */
+.form-pdf-header-centered {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3mm;
+    position: relative;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #c83a3a;
+}
+
+.header-logo-side {
+    width: 60px;
+}
+
+.institution-logo-pdf-centered {
+    height: 70px;
+    width: auto;
+}
+
+.header-text-center {
+    flex: 1;
+    text-align: center;
+}
+
+/* RED BANNER SECTIONS */
+.fidelity-main-title {
+    background-color: #c83a3a;
+    color: white;
+    text-align: center;
+    padding: 4px;
+    font-size: 10pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 3px 0 8px 0;
+    letter-spacing: 0.5px;
+}
+
+.fidelity-section-bar {
+    background-color: #c83a3a;
+    color: white;
+    text-align: center;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 8.5pt;
+    margin: 10px 0 6px 0;
+    text-transform: uppercase;
+}
+
+/* PROGRAMME & NOTE SECTION */
+.programme-note-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.programme-box-area {
+    flex: 1;
+}
+
+.prog-field {
+    border: 1px solid #000;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 10pt;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notes-area {
+    font-size: 8pt;
+    line-height: 1.4;
+}
+
+.notes-area ul {
+    margin: 0;
+    padding-left: 15px;
+}
+
+.photo-space-pdf {
+    width: 110px;
+    height: 130px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 7.5pt;
+    padding: 5px;
+    color: #444;
+}
+
+/* FORM FIELDS */
+.fidelity-field-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+    align-items: flex-end;
+}
+
+.fidelity-field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fidelity-field-item label {
+    font-size: 7.5pt;
+    font-weight: normal;
+}
+
+.field-box {
+    border: 1px solid #000;
+    padding: 3px 8px;
+    font-size: 9pt;
+    background: #fff;
+    min-height: 1.1em;
+}
+
+.full-w {
+    width: 100%;
+}
+
+.half-w {
+    width: 50%;
+}
+
+.quarter-w {
+    width: 25%;
+}
+
+/* GENDER/COMMUNITY BOXES */
+.square-option-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.square-opt-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 8pt;
+}
+
+.square-opt-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 9pt;
+}
+
+/* PARENT SECTION SPECIAL LAYOUT */
+.parent-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.parent-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.parent-type-label {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.parent-info-cols {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+}
+
+/* TABLES */
+.fidelity-table-pdf {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+.fidelity-table-pdf th,
+.fidelity-table-pdf td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 8pt;
+    text-align: left;
+}
+
+.fidelity-table-pdf th {
+    font-weight: normal;
+}
+
+.center-text {
+    text-align: center !important;
+}
+
+.scholarship-print-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px 12px;
+    /* Reduced vertical gap */
+    padding: 2px 5px;
+}
+
+.schol-item {
+    display: flex;
+    flex-direction: row;
+    /* Horizontal layout to save vertical space */
+    align-items: center;
+    gap: 6px;
+}
+
+.schol-label {
+    font-size: 7.5pt;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.schol-label {
+    font-size: 7.5pt;
+}
+
+.schol-box {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+}
+
+/* DECLARATION */
+.fidelity-declaration {
+    margin-top: 15px;
+    font-size: 8.5pt;
+    text-align: justify;
+}
+
+.declaration-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.sig-area-pdf {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+/* DOCUMENTS CHECKLIST */
+.documents-checklist-pdf {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+.documents-checklist-pdf .square-opt-wrapper {
+    font-size: 9pt;
+}
+
+/* Page 2 Spacing & Font Optimization */
+.page-2 {
+    gap: 0;
+}
+
+.page-2 .fidelity-section-bar {
+    margin: 10px 0 6px 0;
+    /* Reduced from 15px/10px */
+    font-size: 9.5pt;
+    /* Slightly smaller */
+    padding: 4px;
+}
+
+.page-2 .fidelity-field-row {
+    margin-bottom: 6px;
+    /* Reduced from 8px */
+}
+
+.page-2 .fidelity-table-pdf th,
+.page-2 .fidelity-table-pdf td {
+    padding: 5px 8px;
+    /* Reduced from 6px/10px */
+    font-size: 8.5pt;
+    /* Reduced from 9pt */
+}
+
+.page-2 .scholarship-print-grid {
+    gap: 6px 10px;
+    /* Highly compact */
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.page-2 .schol-label {
+    font-size: 7.5pt;
+    /* Ensure it stays small */
+}
+
+.pdf-footer-section {
+    margin-top: auto;
+    width: 100%;
+    padding-top: 5px;
+    /* Reduced */
+    border-top: 1px dashed #eee;
+}
+
+.page-2 .fidelity-declaration {
+    margin-top: 8px;
+    /* Reduced */
+    font-size: 8.5pt;
+    /* Reduced */
+    line-height: 1.3;
+}
+
+.page-2 .sig-area-pdf {
+    margin-top: 20px;
+    /* Reduced */
+    margin-bottom: 5px;
+}
+
+/* OFFICE USE ONLY SECTION */
+.office-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.office-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.office-col label {
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.office-signature-box {
+    border: 1px solid #000;
+    height: 25px;
+    width: 100%;
+}
+
+.office-bottom-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.office-small-box {
+    width: 60px;
+    height: 30px;
+    border: 1px solid #000;
+}
+
+.office-wide-box {
+    flex: 1;
+    height: 30px;
+    border: 1px solid #000;
+}
+
+.office-footer-note {
+    font-size: 7.5pt;
+    margin-top: 8px;
+    font-style: italic;
+    color: #444;
+}
+
+/* UTILS */
+.mt-5 {
+    margin-top: 3px;
+}
+
+.mt-10 {
+    margin-top: 6px;
+}
+
+.mb-10 {
+    margin-bottom: 6px;
+}
+
+.page-break {
+    page-break-before: always;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .printable-form {
+        width: 210mm;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-wrapper-fidelity {
+        height: 297mm;
+        margin: 0 !important;
+        padding: 10mm 10mm;
+        /* Symmetrical 10mm padding */
+        box-shadow: none;
+        border: none;
+        /* Removed outer border */
+        page-break-after: always;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .page-wrapper-fidelity:last-child {
+        page-break-after: avoid;
+    }
+
+    .page-break {
+        display: none;
+        /* Already handled by page-break-after on wrapper */
+    }
+}

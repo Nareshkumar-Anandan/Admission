@@ -1,0 +1,69 @@
+/* components/Styles/HighlightsSection.css */
+
+.highlights-section {
+    padding: 60px 10%;
+    background: var(--clr-light);
+    width: 100%;
+}
+
+.highlights-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.highlight-box {
+    background: var(--clr-white);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    box-shadow: var(--shd-soft);
+}
+
+.highlight-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shd-premium);
+    border-color: var(--clr-primary);
+}
+
+.highlight-box h3 {
+    font-family: var(--fnt-heading);
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight-box p {
+    font-family: var(--fnt-body);
+    font-size: 0.9375rem;
+    color: #475569;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .highlights-section {
+        padding: 40px 5%;
+    }
+
+    .highlights-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .highlight-box {
+        padding: 1.5rem 1rem;
+    }
+
+    .highlight-box h3 {
+        font-size: 1.75rem;
+    }
+}
