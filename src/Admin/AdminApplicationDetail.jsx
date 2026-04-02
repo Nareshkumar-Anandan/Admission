@@ -50,6 +50,7 @@ const AdminApplicationDetail = () => {
         fetchDetails();
     }, [userId]);
 
+
     const renderFileCard = (label, filename) => {
         if (!filename) return null;
         return (
@@ -137,6 +138,7 @@ const AdminApplicationDetail = () => {
                 >
                     <FiPrinter /> Print Application PDF
                 </button>
+
 
                 {/* PDF Preview Modal */}
                 {showPdfPreview && (
@@ -257,9 +259,21 @@ const AdminApplicationDetail = () => {
                         <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#1e293b' }}>{data.full_name}</h2>
                         <p style={{ color: '#64748b', margin: '4px 0' }}>Application ID: <span style={{ fontWeight: 700, color: '#6366f1' }}>{data.application_no || 'Pending'}</span></p>
                     </div>
-                    <div className={`status-badge ${data.payment_status === 'PAID' ? 'paid' : 'pending'}`} style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}>
-                        {data.payment_status === 'PAID' ? <FiCheckCircle style={{ marginRight: '6px' }} /> : <FiClock style={{ marginRight: '6px' }} />}
-                        {data.payment_status || "PENDING"}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+                        <div style={{ background: '#f8fafc', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0' }}>
+                            <div style={{ fontSize: '0.65rem', color: '#94a3b8', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>App Payment ID</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1e293b', fontFamily: 'monospace' }}>{data.payment_id || "NOT PAID"}</div>
+                        </div>
+                        {data.tuition_payment_id && (
+                            <div style={{ background: '#f0fdf4', padding: '0.75rem 1rem', borderRadius: '0.75rem', border: '1px solid #dcfce7' }}>
+                                <div style={{ fontSize: '0.65rem', color: '#16a34a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Tuition Payment ID</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#166534', fontFamily: 'monospace' }}>{data.tuition_payment_id}</div>
+                            </div>
+                        )}
+                        <div className={`status-badge ${data.payment_status === 'PAID' ? 'paid' : 'pending'}`} style={{ fontSize: '0.875rem', padding: '0.5rem 1rem' }}>
+                            {data.payment_status === 'PAID' ? <FiCheckCircle style={{ marginRight: '6px' }} /> : <FiClock style={{ marginRight: '6px' }} />}
+                            {data.payment_status || "PENDING"}
+                        </div>
                     </div>
                 </div>
 

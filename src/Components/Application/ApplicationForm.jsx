@@ -36,7 +36,7 @@ const steps = [
   { label: "Personal Information", icon: <FaUser />, key: "personal_completed" },
   { label: "Academic Details", icon: <FaGraduationCap />, key: "academic_completed" },
   { label: "Upload Documents", icon: <FaCloudUploadAlt />, key: "upload_completed" },
-  { label: "Declaration", icon: <FaFileSignature />, key: "declaration_completed" },
+  { label: "Information & Declaration", icon: <FaFileSignature />, key: "declaration_completed" },
   { label: "Payment", icon: <FaCreditCard />, key: "payment_status" },
 ];
 
@@ -46,6 +46,7 @@ const ApplicationForm = () => {
   const [loading, setLoading] = useState(true);
   const [applicationData, setApplicationData] = useState({});
   const [selectedCollege, setSelectedCollege] = useState("");
+  const [applicationNo, setApplicationNo] = useState("");
 
   /* 🔹 Fetch Data & Progress on load */
   useEffect(() => {
@@ -61,6 +62,16 @@ const ApplicationForm = () => {
         const data = res.data || {};
         setApplicationData(data);
         setSelectedCollege(data.college_name || "");
+
+        // Fetch application status to get the generated application number
+        try {
+          const statusRes = await axios.get(`${APPLICATION_API}/status`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (statusRes.data?.application_no) {
+            setApplicationNo(statusRes.data.application_no);
+          }
+        } catch (_) { }
 
         // Derive completed steps from data
         const completed = [];
@@ -128,6 +139,31 @@ const ApplicationForm = () => {
           )}
           <h1>Application Form 2026-27</h1>
           <p>Resume your application from where you left off</p>
+
+          {/* Application Number Badge — top-right */}
+          {applicationNo && (
+            <div style={{
+              position: "absolute",
+              top: "16px",
+              right: "20px",
+              background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+              color: "#fff",
+              borderRadius: "10px",
+              padding: "8px 16px",
+              fontSize: "0.82rem",
+              fontWeight: "700",
+              letterSpacing: "0.05em",
+              boxShadow: "0 4px 12px rgba(79,70,229,0.35)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: "2px",
+              zIndex: 10,
+            }}>
+              <span style={{ fontSize: "0.68rem", opacity: 0.85, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase" }}>Application No.</span>
+              <span style={{ fontSize: "1rem", letterSpacing: "0.06em" }}>{applicationNo}</span>
+            </div>
+          )}
         </div>
 
         {/* STEPPER */}

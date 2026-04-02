@@ -19,19 +19,27 @@ const AdminLogin = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(`${AUTH_API}/login`, {
+            const response = await axios.post(`${AUTH_API}/admin-login`, {
                 email,
                 password
             });
 
             const userRole = response.data.user.role;
-            if (userRole === "super_admin" || userRole === "institution_admin" || userRole === "admin") {
+            const allowedRoles = ["super_admin", "institution_admin", "admin", "accounts_admin"];
+
+            if (allowedRoles.includes(userRole)) {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("userName", response.data.user.full_name);
                 localStorage.setItem("userRole", userRole);
-                localStorage.setItem("adminRole", userRole); // super_admin or institution_admin
+                localStorage.setItem("adminRole", userRole);
                 localStorage.setItem("institutionName", response.data.user.institution_name || "All Institutions");
-                navigate("/admin");
+
+                // Intelligent Redirection
+                if (userRole === "accounts_admin") {
+                    navigate("/accounts-admin");
+                } else {
+                    navigate("/admin");
+                }
             } else {
                 setError("Access denied. Admin privileges required.");
             }

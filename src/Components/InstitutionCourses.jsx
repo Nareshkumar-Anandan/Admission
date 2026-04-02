@@ -187,7 +187,7 @@ const InstitutionCourses = () => {
 
   return (
     <section className="institutions-section section-offset" id="Intitutionsandcourses">
-      <h2 className="offset-head">Hindusthan Institutions & Courses</h2>
+      <h2 className="section-title-centered">Hindusthan Institutions & Courses</h2>
 
       {institutionsData.map((institution) => (
         <div key={institution.id} className={`dropdown ${openDropdown === institution.id ? 'active' : ''}`}>

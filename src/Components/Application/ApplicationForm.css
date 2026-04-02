@@ -37,6 +37,7 @@
 .application-header {
   text-align: center;
   margin-bottom: 40px;
+  position: relative;
 }
 
 .college-logo-container {

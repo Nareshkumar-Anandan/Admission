@@ -75,7 +75,7 @@ const ApplicationPDF = ({ data }) => {
                         <div className="app-no-box-pdf">
                             <span className="app-no-label">No.</span>
                             <span className="app-no-val">
-                                {logoKey}{data.app_sequence_no ? String(data.app_sequence_no).padStart(2, '0') : '----'}
+                                {data.application_no || '----'}
                             </span>
                         </div>
                     </div>

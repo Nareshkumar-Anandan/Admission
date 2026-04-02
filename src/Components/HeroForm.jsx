@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/HeroForm.css';
 import axios from 'axios';
 import { AUTH_API } from '../config';
+import { institutionCourses } from '../Constants/courses';
 const API_URL = AUTH_API;
 const HeroForm = () => {
   const [activeTab, setActiveTab] = useState('register');
@@ -23,6 +24,7 @@ const HeroForm = () => {
   const [cities, setCities] = useState([]);
   const [institutions, setInstitutions] = useState([]);
   const [specializations, setSpecializations] = useState([]);
+  const [blockedCourses, setBlockedCourses] = useState([]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -864,156 +866,24 @@ const HeroForm = () => {
   };
 
 
-  // Institution-Course data
-  const institutionCourses = {
-
-    'HICAS - Hindusthan College of Arts and Science': [
-      'B.Com - Commerce',
-      'B.Com - Computer Applications',
-      'B.Com - Information Technology',
-      'B.Com - Corporate Secretaryship',
-      'B.Com - Professional Accounting',
-      'B.Com - Accounting & Finance',
-      'B.Com - Banking & Insurance',
-      'B.Com - International Business',
-      'B.C.A - Computer Applications',
-      'B.B.A - Business Administration',
-      'B.B.A - Computer Applications',
-      'B.B.A - Logistics',
-      'B.B.A - Business Analytics',
-      'B.Voc - Graphic Design',
-      'B.A - English',
-      'B.Sc - Computer Science',
-      'B.Sc - Information Technology',
-      'B.Sc - Computer Technology',
-      'B.Sc - Computer Science with Cognitive Systems',
-      'B.Sc - Artificial Intelligence & Machine Learning',
-      'B.Sc - Data Science & Analytics',
-      'B.Sc - Computer Science with Cyber Security',
-      'B.Sc - Electronics & Communication Systems',
-      'B.Sc - Biotechnology',
-      'B.Sc - Microbiology',
-      'B.Sc - Food Processing Technology & Management',
-      'B.Sc - Physics',
-      'B.Sc - Animation & Visual Effects',
-      'B.Sc - Visual Communication',
-      'B.Sc - Catering Science & Hotel Management',
-      'B.Sc - Costume Design & Fashion',
-      'B.Sc - Mathematics',
-      'B.Sc - Psychology',
-      'M.Sc - Biotechnology',
-      'M.Sc - Microbiology',
-      'M.Sc - Computer Science',
-      'M.Sc - Information Technology',
-      'M.Sc - Electronics & Communication Systems',
-      'M.Sc - Physics',
-      'M.Sc - Costume Design & Fashion',
-      'M.Sc - Mathematics',
-      'M.Sc - Visual Communication',
-      'M.Sc - Applied Psychology',
-      'M.A - English',
-      'M.S.W - Master of Social Work',
-      'M.Com - Computer Applications',
-      'M.Com - International Business',
-    ],
-    'HISAC - Hindusthan College of Science and Commerce': [
-      'B.Sc - Computer Science',
-      'B.C.A - Computer Applications',
-      'B.Sc - Information Technology',
-      'B.Com - Commerce',
-      'B.B.A - Business Administration',
-      'B.Sc - Artificial Intelligence & Machine Learning',
-      'B.Com - Computer Applications',
-      'B.Com - Professional Accounting',
-      'B.Sc - Artificial Intelligence & Data Science',
-    ],
-    'HICET - Hindusthan College of Engineering and Technology': [
-      'B.E - Aeronautical Engineering',
-      'B.E - Agricultural Engineering',
-      'B.Tech - Artificial Intelligence and Machine Learning',
-      'B.E - Automobile Engineering',
-      'B.E - Biomedical Engineering',
-      'B.Tech - Chemical Engineering',
-      'B.E - Civil Engineering',
-      'B.E - Computer Science and Engineering',
-      'B.E - Computer Science and Engineering with Cyber Security',
-      'B.E - Computer Science and Engineering with Business Systems',
-      'B.E - Electrical and Electronics Engineering',
-      'B.E - Electronics and Communication Engineering',
-      'B.E - Electronics and Instrumentation Engineering',
-      'B.Tech - Food Technology',
-      'B.Tech - Information Technology',
-      'B.E - Mechanical Engineering',
-      'B.E - Mechatronics Engineering',
-      'M.E - Computer Science and Engineering',
-      'M.E - CAD/CAM',
-      'M.E - Communication Systems',
-      'M.E - Embedded Systems',
-      'M.B.A - Master of Business Administration',
-      'M.C.A - Master of Computer Applications',
-    ],
-    'HICE - Hindiusthan College of Engineering': [
-      'B.Tech - Artificial Intelligence and Data Science',
-      'B.E - Computer Science and Engineering',
-      'B.E - Electronics and Communication Engineering',
-      'B.Tech - Information Technology',
-    ],
-    'HIT - Hindusthan Institute of Technology': [
-      'B.E - Aeronautical Engineering',
-      'B.Tech - Artificial Intelligence and Data Science',
-      'B.E - Computer Science and Engineering',
-      'B.E - Electronics and Communication Engineering',
-      'B.Tech - Information Technology',
-      'B.E - Mechanical Engineering',
-      'M.E - Computer Science and Engineering',
-      'M.E - VLSI Design',
-      'M.B.A - Master of Business Administration',
-      'Ph.D - Computer Science and Engineering',
-      'Ph.D - Electronics and Communication Engineering',
-      'Ph.D - Mechanical Engineering',
-      'Ph.D - Physics'
-    ],
-    'HSOA - Hindusthan School of Architecture': [
-      'B.Arch - Bachelor of Architecture'
-    ],
-    'HCE - Hindusthan College of Education': [
-      'B.Ed - Tamil',
-      'B.Ed - English',
-      'B.Ed - Mathematics',
-      'B.Ed - Biological Science',
-      'B.Ed - Social Science',
-      'B.Ed - Geography',
-      'B.Ed - History',
-      'B.Ed - Computer Science',
-      'B.Ed - Physical Science',
-      'B.Ed - Commerce & Accountancy',
-    ],
-
-    'HCHS - Hindusthan College of Health Science': [
-      'B.Sc - Cardiac Technology',
-      'B.Sc - Cardiopulmonary Perfusion Care Technology',
-      'B.Sc - Operation Theatre and Anaesthesia Technology',
-      'B.Sc - Radiography and Imaging Technology',
-      'B.Sc - Respiratory Therapy',
-      'B.Sc - Optometry',
-    ],
-    'HCN - Hindusthan College of Nursing': [
-      'B.Sc - Nursing'
-    ],
-    'HPC - Hindusthan Polytechnic College': [
-      'Diploma - Mechanical Engineering',
-      'Diploma - Electrical and Electronics Engineering',
-      'Diploma - Computer Engineering',
-    ]
-
-  };
+  // State-City data (simplified version)
 
   useEffect(() => {
     // Initialize states and institutions
     setStates(Object.keys(stateCityMap));
     setInstitutions(Object.keys(institutionCourses));
     generateCaptcha();
+    fetchBlockedCourses();
   }, []);
+
+  const fetchBlockedCourses = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/blocked-courses`);
+      setBlockedCourses(res.data || []);
+    } catch (err) {
+      console.error("Failed to fetch blocked courses", err);
+    }
+  };
 
   const generateCaptcha = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -1078,16 +948,16 @@ const HeroForm = () => {
       localStorage.setItem("userRole", res.data.user.role);
       localStorage.setItem("userInstitution", res.data.user.institution_name || '');
 
-      /* Redirect based on role */
-      /* Redirect based on role */
-      if (res.data.user.role === 'admin') {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/dashboard";
-      }
+      /* Redirect to dashboard */
+      window.location.href = "/dashboard";
 
     } catch (err) {
-      alert(err.response?.data?.error || "Something went wrong");
+      const errorMsg = err.response?.data?.error || "Something went wrong";
+      if (errorMsg.includes("Registration successful")) {
+        alert(errorMsg + "\n\nPlease click 'RESEND VERIFICATION EMAIL' at the bottom of the form to try again.");
+      } else {
+        alert(errorMsg);
+      }
     }
   };
 
@@ -1210,9 +1080,14 @@ const HeroForm = () => {
                 onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
               >
                 <option value="">Select Specialization *</option>
-                {specializations.map(course => (
-                  <option key={course} value={course}>{course}</option>
-                ))}
+                {specializations.map(course => {
+                  const isBlocked = blockedCourses.some(bc => bc.institution === formData.institution && bc.course === course);
+                  return (
+                    <option key={course} value={course} disabled={isBlocked}>
+                      {course} {isBlocked ? "(Seat Filled)" : ""}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 

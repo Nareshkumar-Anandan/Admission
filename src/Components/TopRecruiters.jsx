@@ -79,7 +79,7 @@ const TopRecruiters = () => {
 
   return (
     <section className="top-recruiters section-offset" id="topRecruiters">
-      <h2>TOP RECRUITERS</h2>
+      <h2 className="section-title-centered">TOP RECRUITERS</h2>
 
       <div className="recruiter-logos">
         <div

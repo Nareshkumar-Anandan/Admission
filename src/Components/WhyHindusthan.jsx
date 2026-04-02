@@ -48,7 +48,7 @@ const WhyHindusthan = () => {
           <img src={whyHindusthanImg} alt="why hindusthan" />
         </div>
       </div>
-<CollaborationSlider />
+      <CollaborationSlider />
       {/* Reason to be on board */}
       <section className="reason-container">
         {reasons.map((reason) => (

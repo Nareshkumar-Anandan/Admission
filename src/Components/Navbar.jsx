@@ -12,19 +12,29 @@ const Navbar = () => {
     }, []);
 
     const handleScroll = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const topNavbarHeight = document.querySelector('.top-navbar').offsetHeight;
-            const totalNavHeight = navbarHeight + topNavbarHeight;
-            const targetPosition = section.offsetTop - totalNavHeight;
+        setIsMenuOpen(false); // Close menu first to ensure heights are correct
 
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-        setIsMenuOpen(false);
+        // Use a small delay to allow menu closing animation if any, 
+        // though immediate calculation is usually fine if we use absolute positions
+        setTimeout(() => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const isMobile = window.innerWidth <= 768;
+                // On mobile, the sticky header is just the top-navbar (70px)
+                // On desktop, it's roughly 110px total
+                const offset = isMobile ? 80 : 110;
+
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = section.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 10);
     };
 
     return (
@@ -44,6 +54,9 @@ const Navbar = () => {
                         </span>
                     </h3>
                 </div>
+                <div className="top-mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    {isMenuOpen ? <span>&times;</span> : <span>&#9776;</span>}
+                </div>
             </div>
 
             <header className={`navbar ${visible ? 'visible' : ''}`}>
@@ -62,8 +75,13 @@ const Navbar = () => {
                             Top Recruiters
                         </a>
                         <a href="#gallerySection" className="nav-link" onClick={(e) => { e.preventDefault(); handleScroll('gallerySection'); }}>
-                            Gallery
+                            Infrastructure
                         </a>
+                        <div className="mobile-contact-info">
+                            <h2>For Admission Contact</h2>
+                            <p><i className="fa-solid fa-phone"></i> +91 98431 33333</p>
+                            <p><i className="fa-solid fa-envelope"></i> info@hindusthan.net</p>
+                        </div>
                     </nav>
                     <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                         &#9776;

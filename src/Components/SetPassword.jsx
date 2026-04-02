@@ -66,7 +66,7 @@ const SetPassword = () => {
     <div className="set-password-container">
       <div className="set-password-card">
         <img
-          src={new URL('../assets/logo1.webp', import.meta.url).href}
+          src={new URL('../assets/Hindusthanblack.png', import.meta.url).href}
           alt="Hindusthan Logo"
           className="set-password-logo"
         />

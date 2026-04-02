@@ -65,14 +65,10 @@
     justify-content: space-between;
     align-items: center;
     color: rgba(0, 0, 0, 0.685);
-    position: sticky;
-    top: 0;
     z-index: 100;
     background: #f6f6f6;
     padding: 10px 0;
-    /* Adding some padding to look better when sticky */
     margin-bottom: 20px;
-    /* Separating from content */
 }
 
 .header-actions {
@@ -544,5 +540,228 @@
 
     body {
         background: white !important;
+    }
+}
+
+/* Responsive Design */
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Header Mobile Layout */
+.header-left-section {
+    display: none;
+}
+
+.mobile-branding {
+    display: none;
+    /* Hidden on desktop */
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-logo-img {
+    height: 35px;
+    width: auto;
+}
+
+.mobile-separator {
+    width: 1px;
+    height: 24px;
+    background-color: #ddd;
+}
+
+@media (max-width: 1024px) {
+    .menu {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        z-index: 1000;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-toggle {
+        display: block !important;
+        visibility: visible;
+    }
+
+    .mobile-branding {
+        display: flex !important;
+        visibility: visible;
+    }
+
+    .header-left-section {
+        display: flex !important;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .dashboard-content {
+        width: 100%;
+        padding: 15px;
+
+    }
+
+    .dashboard-header {
+        position: sticky;
+        top: 0;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        background: #f6f6f6;
+        flex-wrap: wrap;
+        /* Allow wrapping */
+        flex-direction: row;
+        align-items: center;
+        /* justify-content: space-between is less effective with wrap, but okay */
+
+    }
+
+    .header-left-section {
+        display: flex;
+        align-items: center;
+        order: 1;
+        flex: 1;
+        gap: 12px;
+    }
+
+    .mobile-branding {
+        display: flex;
+    }
+
+    /* Page title moves to the next row */
+    .page-title-container {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .page-title-container h1 {
+        font-size: 1.25rem;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .welcome-text {
+        display: none;
+    }
+
+    .sidebar-toggle {
+        display: block;
+        font-size: 20px;
+        margin-right: 0;
+        padding: 5px;
+    }
+
+    .header-actions {
+        order: 2;
+    }
+
+    .status-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .status-card {
+        width: 100%;
+    }
+
+    .apply-new {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px;
+        background: #eef2ff;
+        border-radius: 8px;
+    }
+
+    .application-card {
+        flex-direction: column;
+    }
+
+    .application-left,
+    .application-right {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .application-right {
+        border-left: none;
+        border-top: 1px solid #eee;
+    }
+
+    .application-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .application-actions {
+        flex-direction: column;
+    }
+
+    .btn-submitted,
+    .btn-download,
+    .continue-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header {
+        padding: 12px 15px;
+    }
+
+    .mobile-logo-img {
+        height: 28px;
+    }
+
+    .sidebar-toggle {
+        font-size: 18px;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    .help-btn {
+        display: none;
     }
 }

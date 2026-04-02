@@ -31,16 +31,19 @@ const CollaborationSlider = () => {
   ];
 
   return (
-    <div className="collaboration-slider section-offset" id="international-collaboration">
-      <div className="collaboration-track">
-        {/* Original logos */}
-        {collaborationLogos.map((logo, index) => (
-          <img key={`original-${index}`} src={logo.src} alt={logo.alt} />
-        ))}
-        {/* Duplicate logos for seamless loop */}
-        {collaborationLogos.map((logo, index) => (
-          <img key={`duplicate-${index}`} src={logo.src} alt={logo.alt} />
-        ))}
+    <div className="collaboration-section" id="international-collaboration" style={{ padding: '60px 0' }}>
+      <h2 className="section-title-centered">International Collaboration</h2>
+      <div className="collaboration-slider section-offset">
+        <div className="collaboration-track">
+          {/* Original logos */}
+          {collaborationLogos.map((logo, index) => (
+            <img key={`original-${index}`} src={logo.src} alt={logo.alt} />
+          ))}
+          {/* Duplicate logos for seamless loop */}
+          {collaborationLogos.map((logo, index) => (
+            <img key={`duplicate-${index}`} src={logo.src} alt={logo.alt} />
+          ))}
+        </div>
       </div>
     </div>
   );

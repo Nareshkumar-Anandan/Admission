@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { APPLICATION_API } from "../../config";
+import { stateCityMap } from "../../Constants/stateCityData";
 
 const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
     const [loading, setLoading] = useState(false);
+    const [cities, setCities] = useState([]);
+    const [showOtherReligion, setShowOtherReligion] = useState(false);
 
     const [formData, setFormData] = useState({
         programme_applied: initialData?.programme_applied || "",
@@ -41,15 +44,49 @@ const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
                 // Ensure date is formatted correctly for input type="date"
                 dob: initialData.dob ? new Date(initialData.dob).toISOString().split('T')[0] : prev.dob,
             }));
+
+            // Handle pre-filling cities if state exists
+            if (initialData.state && stateCityMap[initialData.state]) {
+                setCities(stateCityMap[initialData.state]);
+            }
+
+            // Handle pre-filling "Other" religion
+            const standardReligions = ["Hindu", "Muslim", "Christian", "Sikh", "Jain", "Buddhist"];
+            if (initialData.religion && !standardReligions.includes(initialData.religion)) {
+                setShowOtherReligion(true);
+            }
         }
     }, [initialData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+
+        if (name === "state") {
+            setFormData({
+                ...formData,
+                state: value,
+                city: "", // Reset city when state changes
+            });
+            setCities(stateCityMap[value] || []);
+        } else if (name === "religion") {
+            if (value === "Other") {
+                setShowOtherReligion(true);
+                setFormData({ ...formData, religion: "" });
+            } else {
+                setShowOtherReligion(false);
+                setFormData({ ...formData, religion: value });
+            }
+        } else if (name === "full_name") {
+            setFormData({
+                ...formData,
+                full_name: value.toUpperCase(),
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
 
         // Notify parent if college changes
         if (name === "college_name" && onCollegeChange) {
@@ -174,7 +211,7 @@ const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
-                            <option value="Transgender">Transgender</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
 
@@ -202,14 +239,35 @@ const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
 
                     <div className="form-group">
                         <label>Religion</label>
-                        <input
-                            type="text"
+                        <select
                             name="religion"
-                            placeholder="Religion"
-                            value={formData.religion}
+                            value={showOtherReligion ? "Other" : (formData.religion || "")}
                             onChange={handleChange}
-                        />
+                        >
+                            <option value="">Select Religion</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Sikh">Sikh</option>
+                            <option value="Jain">Jain</option>
+                            <option value="Buddhist">Buddhist</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
+
+                    {showOtherReligion && (
+                        <div className="form-group">
+                            <label>Please Specify Religion</label>
+                            <input
+                                type="text"
+                                name="religion"
+                                placeholder="Enter your religion"
+                                value={formData.religion}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    )}
 
                     <div className="form-group">
                         <label>Community</label>
@@ -356,13 +414,17 @@ const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
 
                     <div className="form-group">
                         <label>Family Annual Income</label>
-                        <input
-                            type="number"
+                        <select
                             name="annual_income"
-                            placeholder="Annual income"
                             value={formData.annual_income}
                             onChange={handleChange}
-                        />
+                        >
+                            <option value="">Select Annual Income</option>
+                            <option value="Below 2 L">Below 2 L</option>
+                            <option value="2.5 to 5 L">2.5 to 5 L</option>
+                            <option value="5 - 10L">5 - 10L</option>
+                            <option value="Above 10 lakhs">Above 10 lakhs</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -385,26 +447,36 @@ const PersonalInfo = ({ onNext, initialData, onCollegeChange }) => {
 
                     <div className="form-group">
                         <label>City *</label>
-                        <input
-                            type="text"
+                        <select
                             name="city"
-                            placeholder="City"
                             value={formData.city}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="">Select City *</option>
+                            {cities.map((city) => (
+                                <option key={city} value={city}>
+                                    {city}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="form-group">
                         <label>State *</label>
-                        <input
-                            type="text"
+                        <select
                             name="state"
-                            placeholder="State"
                             value={formData.state}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="">Select State *</option>
+                            {Object.keys(stateCityMap).map((state) => (
+                                <option key={state} value={state}>
+                                    {state}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="form-group">

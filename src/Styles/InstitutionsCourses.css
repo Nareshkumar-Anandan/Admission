@@ -7,15 +7,7 @@
   margin: 0 auto;
 }
 
-.institutions-section h2 {
-  font-family: var(--fnt-heading);
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--clr-dark);
-  margin-bottom: 3.5rem;
-  text-align: center;
-  letter-spacing: -0.02em;
-}
+/* Heading is handled by .section-title-centered */
 
 .dropdown {
   background: var(--clr-light);
@@ -185,10 +177,7 @@
     padding: 60px 4%;
   }
 
-  .institutions-section h2 {
-    font-size: 1.85rem;
-    margin-bottom: 2.5rem;
-  }
+  /* Removed custom h2 mobile size */
 
   .dropdown-header {
     font-size: 1.05rem;

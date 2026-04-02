@@ -30,9 +30,10 @@ const BasicDetails = ({ onNext, initialData }) => {
   }, [initialData]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: name === "full_name" ? value.toUpperCase() : value,
     });
   };
 
@@ -43,7 +44,8 @@ const BasicDetails = ({ onNext, initialData }) => {
       !formData.email ||
       !formData.phone ||
       !formData.dob ||
-      !formData.gender
+      !formData.gender ||
+      !formData.nationality
     ) {
       alert("Please fill all required fields");
       return;
@@ -135,12 +137,13 @@ const BasicDetails = ({ onNext, initialData }) => {
         </div>
 
         <div className="form-group">
-          <label>Nationality</label>
+          <label>Nationality *</label>
           <input
             type="text"
             name="nationality"
             value={formData.nationality}
             onChange={handleChange}
+            required
           />
         </div>
       </div>

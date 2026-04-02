@@ -133,6 +133,52 @@
 }
 
 /* Mobile Menu */
+.top-mobile-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--clr-white);
+  background: none;
+  border: none;
+  transition: var(--transition-smooth);
+}
+
+.top-mobile-toggle span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.mobile-contact-info {
+  display: none;
+  padding: 0.875rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-contact-info h2 {
+  font-family: var(--fnt-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--clr-white);
+}
+
+.mobile-contact-info p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-contact-info i {
+  color: var(--clr-primary);
+  width: 16px;
+}
+
 .menu-toggle {
   display: none;
   font-size: 1.5rem;
@@ -153,31 +199,27 @@
 @media (max-width: 768px) {
   .top-navbar {
     height: 70px;
-    padding: 0 4%;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none !important;
   }
 
   .top-logo img {
     height: 40px;
   }
 
-  .top-contact {
-    text-align: right;
-  }
-
-  .top-contact h2 {
-    font-size: 0.9rem;
-    margin-bottom: 2px;
-  }
-
-  .top-contact h3 {
-    font-size: 0.75rem;
+  .top-mobile-toggle {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
   }
 
-  .top-contact h3 .line {
+  .top-contact {
     display: none;
+  }
+
+  .mobile-contact-info {
+    display: block;
   }
 
   .navbar {
@@ -187,20 +229,21 @@
     padding: 0;
     width: 92%;
     overflow: hidden;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .nav-container {
-    padding: 0 1.25rem;
+    padding: 0;
     flex-direction: column;
     align-items: stretch;
   }
 
   .menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 50px;
-    font-size: 1.25rem;
+    display: none;
   }
 
   .nav-links {
@@ -208,8 +251,13 @@
     flex-direction: column;
     width: 100%;
     gap: 0;
-    padding: 0.5rem 0 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.5rem;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    box-shadow: var(--shd-premium);
   }
 
   .nav-links.active {

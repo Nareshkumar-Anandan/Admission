@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiSearch, FiCalendar, FiRefreshCcw, FiEye, FiFilter } from "react-icons/fi";
+import { FiSearch, FiCalendar, FiRefreshCcw, FiEye, FiFilter, FiDownload } from "react-icons/fi";
 import "../Styles/AdminPanel.css";
-import { USER_API } from "../config";
+import { USER_API, ADMIN_API } from "../config";
+import { institutionCourses } from "../Constants/courses";
 
 const AdminStudents = () => {
     const navigate = useNavigate();
@@ -10,8 +11,16 @@ const AdminStudents = () => {
     const [loading, setLoading] = useState(true);
     const [sortConfig, setSortConfig] = useState({ key: 'created_at', direction: 'descending' });
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedInstitution, setSelectedInstitution] = useState("");
+    const [selectedCourse, setSelectedCourse] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
+
+    const institutions = Object.keys(institutionCourses);
+
+    const availableCourses = selectedInstitution
+        ? institutionCourses[selectedInstitution] || []
+        : Array.from(new Set(Object.values(institutionCourses).flat())).sort();
 
     useEffect(() => {
         const fetchStudents = async () => {
@@ -51,10 +60,17 @@ const AdminStudents = () => {
             const query = searchTerm.toLowerCase();
             items = items.filter(s =>
                 (s.full_name?.toLowerCase().includes(query)) ||
-                (s.institution_name?.toLowerCase().includes(query)) ||
-                (s.specialization?.toLowerCase().includes(query)) ||
-                (s.email?.toLowerCase().includes(query))
+                (s.email?.toLowerCase().includes(query)) ||
+                (s.application_no?.toLowerCase().includes(query))
             );
+        }
+
+        if (selectedInstitution) {
+            items = items.filter(s => s.institution_name === selectedInstitution);
+        }
+
+        if (selectedCourse) {
+            items = items.filter(s => s.specialization === selectedCourse);
         }
 
         if (fromDate) {
@@ -86,7 +102,39 @@ const AdminStudents = () => {
             });
         }
         return items;
-    }, [students, sortConfig, searchTerm, fromDate, toDate]);
+    }, [students, sortConfig, searchTerm, selectedInstitution, selectedCourse, fromDate, toDate]);
+
+    const handleExport = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const params = new URLSearchParams();
+            if (searchTerm) params.append("name", searchTerm);
+            if (selectedInstitution) params.append("college", selectedInstitution);
+            if (selectedCourse) params.append("course", selectedCourse);
+
+            const response = await fetch(`${ADMIN_API}/csv/students?${params.toString()}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Students_Report_${new Date().toLocaleDateString()}.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } else {
+                alert("Failed to export details.");
+            }
+        } catch (error) {
+            console.error("Export error:", error);
+            alert("An error occurred during export.");
+        }
+    };
 
     const getSortIcon = (key) => {
         if (sortConfig.key !== key) return " ↕";
@@ -103,23 +151,49 @@ const AdminStudents = () => {
                         <FiFilter style={{ color: '#6366f1', fontSize: '1.25rem' }} />
                         <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>Filter Students</h3>
                     </div>
-                    <button
-                        onClick={() => { setSearchTerm(""); setFromDate(""); setToDate(""); setSortConfig({ key: 'created_at', direction: 'descending' }); }}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            background: '#fee2e2',
-                            color: '#ef4444',
-                            border: 'none',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '0.75rem',
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                        }}
-                    >
-                        <FiRefreshCcw /> Reset
-                    </button>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                        <button
+                            onClick={handleExport}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                background: '#e0e7ff',
+                                color: '#6366f1',
+                                border: 'none',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.75rem',
+                                fontWeight: 600,
+                                cursor: 'pointer'
+                            }}
+                        >
+                            <FiDownload /> Export Excel
+                        </button>
+                        <button
+                            onClick={() => {
+                                setSearchTerm("");
+                                setSelectedInstitution("");
+                                setSelectedCourse("");
+                                setFromDate("");
+                                setToDate("");
+                                setSortConfig({ key: 'created_at', direction: 'descending' });
+                            }}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                background: '#fee2e2',
+                                color: '#ef4444',
+                                border: 'none',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.75rem',
+                                fontWeight: 600,
+                                cursor: 'pointer'
+                            }}
+                        >
+                            <FiRefreshCcw /> Reset
+                        </button>
+                    </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
@@ -129,7 +203,7 @@ const AdminStudents = () => {
                             <FiSearch style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                             <input
                                 type="text"
-                                placeholder="Name, Institution..."
+                                placeholder="Search by Name..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 style={{
@@ -141,6 +215,60 @@ const AdminStudents = () => {
                                 }}
                             />
                         </div>
+                    </div>
+
+                    <div className="filter-group">
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Institution</label>
+                        <select
+                            value={selectedInstitution}
+                            onChange={(e) => setSelectedInstitution(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '0.75rem 1rem',
+                                borderRadius: '0.75rem',
+                                border: '1px solid #e2e8f0',
+                                fontSize: '0.875rem',
+                                background: 'white'
+                            }}
+                        >
+                            <option value="">All Institutions</option>
+                            {institutions.map(inst => (
+                                <option key={inst} value={inst}>{inst}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="filter-group">
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Course</label>
+                        <select
+                            value={selectedCourse}
+                            onChange={(e) => setSelectedCourse(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '0.75rem 1rem',
+                                borderRadius: '0.75rem',
+                                border: '1px solid #e2e8f0',
+                                fontSize: '0.875rem',
+                                background: 'white'
+                            }}
+                        >
+                            <option value="">All Courses</option>
+                            {selectedInstitution ? (
+                                // Show only chosen institution's courses
+                                (institutionCourses[selectedInstitution] || []).map(course => (
+                                    <option key={course} value={course}>{course}</option>
+                                ))
+                            ) : (
+                                // Show all courses grouped by institution
+                                Object.entries(institutionCourses).map(([inst, courses]) => (
+                                    <optgroup key={inst} label={inst}>
+                                        {courses.map(course => (
+                                            <option key={`${inst}-${course}`} value={course}>{course}</option>
+                                        ))}
+                                    </optgroup>
+                                ))
+                            )}
+                        </select>
                     </div>
 
                     <div className="filter-group">
@@ -188,7 +316,7 @@ const AdminStudents = () => {
                     <table className="modern-table">
                         <thead>
                             <tr>
-                                <th onClick={() => handleSort('id')} style={{ cursor: 'pointer' }}>ID {getSortIcon('id')}</th>
+                                <th onClick={() => handleSort('application_no')} style={{ cursor: 'pointer' }}>App ID {getSortIcon('application_no')}</th>
                                 <th onClick={() => handleSort('full_name')} style={{ cursor: 'pointer' }}>Name {getSortIcon('full_name')}</th>
                                 <th onClick={() => handleSort('email')} style={{ cursor: 'pointer' }}>Email {getSortIcon('email')}</th>
                                 <th onClick={() => handleSort('phone')} style={{ cursor: 'pointer' }}>Phone {getSortIcon('phone')}</th>
@@ -202,7 +330,7 @@ const AdminStudents = () => {
                             {filteredAndSortedStudents.map((student) => (
                                 <tr key={student.id}>
                                     <td>
-                                        <span style={{ fontWeight: 700, color: '#6366f1' }}>#{student.id}</span>
+                                        <span style={{ fontWeight: 700, color: '#6366f1' }}>{student.application_no || `#${student.id}`}</span>
                                     </td>
                                     <td>
                                         <div style={{ fontWeight: 600, color: '#1e293b' }}>{student.full_name}</div>

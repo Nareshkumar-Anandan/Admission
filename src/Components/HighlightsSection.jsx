@@ -163,6 +163,7 @@ const HighlightsSection = () => {
 
   return (
     <section className="highlights-section section-offset">
+      <h2 className="section-title-centered">Hindusthan at a Glance</h2>
       <div className="highlights-container">
         {highlights.map((highlight, index) => (
           <div key={index} className="highlight-box">

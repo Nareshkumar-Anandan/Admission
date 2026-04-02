@@ -5,8 +5,8 @@ import dsc00453 from '../assets/DSC00453.webp';
 import dsc00437 from '../assets/DSC00437.webp';
 import hicas01 from '../assets/HICAS-01.webp';
 import hicet01 from '../assets/HICET-01.webp';
-import img0809 from '../assets/IMG_0809.webp';
-
+import img0809 from '../assets/Ingur.jpg';
+import hicas02 from '../assets/Hicas02.jpg';
 const Gallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -18,7 +18,7 @@ const Gallery = () => {
       className: 'gallery-image img-wide'
     },
     {
-      src: dsc00453,
+      src: hicas02,
       alt: 'Gallery 2',
       className: 'gallery-image img-tall'
     },
@@ -105,7 +105,7 @@ const Gallery = () => {
 
   return (
     <div className="gallery-container section-offset" id="gallerySection">
-      <h1 className="gallery-title">Infrastructure</h1>
+      <h2 className="section-title-centered">Infrastructure</h2>
 
       <div className="gallery">
         {galleryImages.map((image, index) => (

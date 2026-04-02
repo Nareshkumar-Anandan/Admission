@@ -9,19 +9,20 @@ import {
     FiShield,
     FiBarChart2,
     FiSettings,
-    FiUser
+    FiUser,
+    FiMessageSquare
 } from "react-icons/fi";
 import "../Styles/AdminPanel.css";
-
-const AdminSidebar = () => {
+import logo from "../assets/HindusthanWhite.png";
+const AdminSidebar = ({ isOpen, onClose }) => {
     const adminRole = localStorage.getItem("adminRole");
     const isSuperAdmin = adminRole === "super_admin";
 
     return (
-        <aside className="sidebar">
+        <aside className={`sidebar ${isOpen ? "open" : ""}`}>
             <div className="logo-section">
                 <img
-                    src="/assets/images/logo.webp"
+                    src={logo}
                     alt="Hindusthan Logo"
                     className="sidebar-logo"
                 />
@@ -32,65 +33,67 @@ const AdminSidebar = () => {
 
             <ul className="menu">
                 <li>
-                    <NavLink to="/admin" end>
+                    <NavLink to="/admin" end onClick={onClose}>
                         <FiGrid className="nav-icon" /> Dashboard
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/applications">
+                    <NavLink to="/admin/students" onClick={onClose}>
+                        <FiUsers className="nav-icon" /> Users
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/admin/applications" onClick={onClose}>
                         <FiFileText className="nav-icon" /> Applications
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/documents">
+                    <NavLink to="/admin/documents" onClick={onClose}>
                         <FiFolder className="nav-icon" /> Documents
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/payments">
+                    <NavLink to="/admin/payments" onClick={onClose}>
                         <FiCreditCard className="nav-icon" /> Payments
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/students">
-                        <FiUsers className="nav-icon" /> Students
+                    <NavLink to="/admin/seat-blocking" onClick={onClose}>
+                        <FiShield className="nav-icon" /> Seat Blocking
                     </NavLink>
                 </li>
                 {isSuperAdmin && (
                     <li>
-                        <NavLink to="/admin/admins">
+                        <NavLink to="/admin/admins" onClick={onClose}>
                             <FiShield className="nav-icon" /> Management
                         </NavLink>
                     </li>
                 )}
                 <li>
-                    <NavLink to="/admin/reports">
+                    <NavLink to="/admin/reports" onClick={onClose}>
                         <FiBarChart2 className="nav-icon" /> Reports
                     </NavLink>
                 </li>
+                {isSuperAdmin && (
+                    <>
+                        <li>
+                            <NavLink to="/admin/queries" onClick={onClose}>
+                                <FiMessageSquare className="nav-icon" /> Queries
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/admin/settings" onClick={onClose}>
+                                <FiSettings className="nav-icon" /> Settings
+                            </NavLink>
+                        </li>
+                    </>
+                )}
                 <li>
-                    <NavLink to="/admin/settings">
-                        <FiSettings className="nav-icon" /> Settings
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/admin/profile">
+                    <NavLink to="/admin/profile" onClick={onClose}>
                         <FiUser className="nav-icon" /> Profile
                     </NavLink>
                 </li>
             </ul>
-
-            <div style={{ marginTop: 'auto', padding: '2rem 1.25rem' }}>
-                <div style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    padding: '1rem',
-                    borderRadius: '1rem',
-                    border: '1px solid rgba(255,255,255,0.05)'
-                }}>
-                    <p style={{ color: 'white', fontSize: '0.875rem', fontWeight: 600 }}>v2.0 Beta</p>
-                    <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Youthful Edition</p>
-                </div>
-            </div>
         </aside>
     );
 };

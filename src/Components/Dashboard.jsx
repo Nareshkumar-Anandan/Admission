@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaBars } from "react-icons/fa";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import "../Styles/Dashboard.css";
 import hindusthanLogo from "../assets/Hindusthanwhite.png";
+import hindusthanLogoBlack from "../assets/Hindusthan.svg";
 import prospectus from "../assets/Documents/Admission-Brouchure-25-26 (1).pdf";
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const Dashboard = () => {
   const location = useLocation();
 
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,6 +26,10 @@ const Dashboard = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     navigate("/");
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const getTitle = () => {
@@ -55,24 +62,30 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-layout">
+      {/* Sidebar Overlay */}
+      <div
+        className={`sidebar-overlay ${isSidebarOpen ? "active" : ""}`}
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
+
       {/* Sidebar */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="logo-section">
           <img src={hindusthanLogo} alt="Hindusthan Logo" />
         </div>
 
         <ul className="menu">
           <li>
-            <NavLink to="/dashboard" end>Dashboard</NavLink>
+            <NavLink to="/dashboard" end onClick={() => setIsSidebarOpen(false)}>Dashboard</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/application-forms">Application Form</NavLink>
+            <NavLink to="/dashboard/application-forms" onClick={() => setIsSidebarOpen(false)}>Application Form</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/my-payments">My Payments</NavLink>
+            <NavLink to="/dashboard/my-payments" onClick={() => setIsSidebarOpen(false)}>My Payments</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/my-queries">My Queries</NavLink>
+            <NavLink to="/dashboard/my-queries" onClick={() => setIsSidebarOpen(false)}>My Queries</NavLink>
           </li>
           <li>
             <a
@@ -81,6 +94,7 @@ const Dashboard = () => {
               rel="noopener noreferrer"
               className="prospectus-link"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              onClick={() => setIsSidebarOpen(false)}
             >
               Prospectus <FaExternalLinkAlt />
             </a>
@@ -91,9 +105,20 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="dashboard-content">
         <header className="dashboard-header">
-          <div>
+          <div className="header-left-section">
+            <button className="sidebar-toggle" onClick={toggleSidebar}>
+              <FaBars />
+            </button>
+
+            <div className="mobile-branding">
+              <img src={hindusthanLogoBlack} alt="Hindusthan" className="mobile-logo-img" />
+              <div className="mobile-separator"></div>
+            </div>
+          </div>
+
+          <div className="page-title-container">
             <h1>{getTitle()}</h1>
-            <p>
+            <p className="welcome-text">
               Welcome <strong>{userName}</strong>
             </p>
           </div>

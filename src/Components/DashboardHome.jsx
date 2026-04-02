@@ -214,8 +214,16 @@ const DashboardHome = () => {
                                     <div className="btn-submitted">
                                         Submitted ✓
                                     </div>
-                                    <button className="btn-download" onClick={handleDownload}>
+                                    <button className="btn-download" onClick={handleDownload} title="Download your application form PDF">
                                         Download Form ↓
+                                    </button>
+                                    <button
+                                        className="btn-primary"
+                                        onClick={() => navigate("/dashboard/my-payments")}
+                                        title="Pay Tuition Fees to confirm your seat"
+                                        style={{ background: "#10b981", border: "none" }}
+                                    >
+                                        Tuition Fees
                                     </button>
                                 </div>
                             </div>

@@ -3,11 +3,16 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import "../Styles/AdminPanel.css"; // Global Youthful Design System
 
+import { FiMenu } from "react-icons/fi";
+
+import hindusthanLogoBlack from "../assets/Hindusthan.svg";
+
 const AdminLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState("Admin");
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -59,18 +64,37 @@ const AdminLayout = () => {
 
     return (
         <div className="dashboard-layout">
-            <AdminSidebar />
+            <div
+                className={`sidebar-overlay ${isSidebarOpen ? "active" : ""}`}
+                onClick={() => setIsSidebarOpen(false)}
+            ></div>
+
+            <AdminSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             <main className="dashboard-content">
-                <header className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
+                <header className="dashboard-header">
+                    <div className="header-left-section">
+                        <button
+                            className="sidebar-toggle"
+                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        >
+                            <FiMenu />
+                        </button>
+
+                        <div className="mobile-branding">
+                            <img src={hindusthanLogoBlack} alt="Hindusthan" className="mobile-logo-img" />
+                            <div className="mobile-separator"></div>
+                        </div>
+                    </div>
+
+                    <div className="page-title-container">
                         <h1>{getTitle()}</h1>
-                        <p style={{ color: '#64748b', fontWeight: 500 }}>
+                        <p className="welcome-text" style={{ color: '#64748b', fontWeight: 500 }}>
                             How's your day, <span style={{ color: '#6366f1' }}>{userName}</span>?
                         </p>
                     </div>
 
-                    <div className="header-actions" style={{ position: "relative", display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <div className="header-actions">
                         <div
                             className="user-avatar"
                             onClick={() => setShowDropdown(!showDropdown)}

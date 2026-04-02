@@ -10,6 +10,7 @@ import {
     FiActivity,
     FiTrendingUp
 } from "react-icons/fi";
+import DailyTrendGraph from "./DailyTrendGraph";
 import RealTimeMonitoring from "./RealTimeMonitoring";
 import "../Styles/AdminDashboard.css";
 import "../Styles/AdminPanel.css";
@@ -25,6 +26,7 @@ const AdminDashboard = () => {
         totalPayments: 0
     });
     const [loading, setLoading] = useState(true);
+    const [showGraph, setShowGraph] = useState(false);
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -47,20 +49,38 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-page-container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+            {showGraph && <DailyTrendGraph onClose={() => setShowGraph(false)} />}
+
+            <div className="dashboard-welcome-section">
                 <div>
                     <h2 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: '#1e293b' }}>Performance Overview</h2>
                     <p style={{ color: '#64748b', margin: '4px 0' }}>Welcome back, <span style={{ color: '#6366f1', fontWeight: 700 }}>{userName}</span>. Here's what's happening today.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <div style={{ padding: '0.75rem 1.25rem', background: '#fff', borderRadius: '0.75rem', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div
+                        onClick={() => setShowGraph(true)}
+                        style={{
+                            padding: '0.75rem 1.25rem',
+                            background: '#fff',
+                            borderRadius: '0.75rem',
+                            border: '1px solid #e2e8f0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                        onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                    >
                         <FiActivity style={{ color: '#6366f1' }} />
                         <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#475569' }}>Real-time Monitoring</span>
                     </div>
                 </div>
             </div>
 
-            <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+            <div className="stats-grid">
                 <div className="modern-stat-card" style={{ background: 'white', padding: '2rem', borderRadius: '1.25rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                     <div style={{ width: '64px', height: '64px', background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6366f1', fontSize: '1.5rem' }}>
                         <FiFileText />

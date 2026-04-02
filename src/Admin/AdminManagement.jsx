@@ -56,8 +56,8 @@ const AdminManagement = () => {
         setFormData(prev => ({
             ...prev,
             [name]: value,
-            // Reset institution if Super Admin is selected
-            ...(name === "role" && value === "super_admin" ? { institution_name: "All Institutions" } : {})
+            // Reset institution if Super Admin or Accounts Admin is selected for "All Institutions"
+            ...(name === "role" && (value === "super_admin" || value === "accounts_admin") ? { institution_name: "All Institutions" } : {})
         }));
     };
 
@@ -302,6 +302,7 @@ const AdminManagement = () => {
                                     >
                                         <option value="institution_admin">Institution Admin</option>
                                         <option value="super_admin">Super Admin</option>
+                                        <option value="accounts_admin">Accounts Admin</option>
                                     </select>
                                 </div>
                                 <div>
@@ -315,13 +316,12 @@ const AdminManagement = () => {
                                         style={{ width: '100%', padding: '0.75rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0', outline: 'none', background: formData.role === 'super_admin' ? '#f1f5f9' : 'white' }}
                                     >
                                         <option value="">Select Institution</option>
-                                        {formData.role === 'super_admin' ? (
+                                        {(formData.role === 'super_admin' || formData.role === 'accounts_admin') && (
                                             <option value="All Institutions">All Institutions</option>
-                                        ) : (
-                                            institutions.map(inst => (
-                                                <option key={inst} value={inst}>{inst.split(' - ')[0]}</option>
-                                            ))
                                         )}
+                                        {institutions.map(inst => (
+                                            <option key={inst} value={inst}>{inst.split(' - ')[0]}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>

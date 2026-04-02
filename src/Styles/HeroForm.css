@@ -336,10 +336,11 @@
 
 @media (max-width: 480px) {
   .form-background {
-    padding: 130px 3% 30px;
+    padding: 90px 3% 30px;
   }
 
   .form-container {
     padding: 1rem;
+
   }
 }

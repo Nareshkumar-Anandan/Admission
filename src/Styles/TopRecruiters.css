@@ -9,14 +9,7 @@
   padding: 10px 0;
 }
 
-.top-recruiters h2 {
-  font-family: var(--fnt-heading);
-  font-size: 2.15rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: var(--clr-dark);
-  letter-spacing: -0.02em;
-}
+/* Heading is handled by .section-title-centered */
 
 .recruiter-logos {
   position: relative;
@@ -82,10 +75,7 @@
     padding: 60px 0;
   }
 
-  .top-recruiters h2 {
-    font-size: 1.75rem;
-    margin-bottom: 2.5rem;
-  }
+  /* Removed custom h2 mobile size */
 
   .recruiter-logos {
     height: 80px;

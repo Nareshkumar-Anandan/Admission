@@ -22,30 +22,9 @@
     z-index: 0;
 }
 
-.gallery-title {
-    font-family: var(--fnt-heading);
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--clr-dark);
-    margin-bottom: 4rem;
-    text-align: center;
-    letter-spacing: -0.03em;
-    position: relative;
-    z-index: 1;
-    width: 90%;
-}
+/* Heading is handled by .section-title-centered */
 
-.gallery-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: var(--grad-primary);
-    border-radius: 2px;
-}
+/* Heading line is removed for consistency */
 
 .gallery {
     display: grid;
